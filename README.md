@@ -151,7 +151,7 @@ This project is documented as an IEEE conference paper:
 
 ## 👨‍💻 Author
 
-**Bhanu Prasad B**  
+**Girada Bhanu Prasad **  
 Department of Artificial Intelligence and Machine Learning  
 Dhanalakshmi Srinivasan University — Batch 2023–2027
 
