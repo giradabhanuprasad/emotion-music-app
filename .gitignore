@@ -1,0 +1,14 @@
+.venv/
+venv/
+backend/venv/
+frontend/node_modules/
+node_modules/
+__pycache__/
+*.pyc
+*.pth
+*.pt
+*.pkl
+*.db
+.env
+*.log
+*.dll

@@ -1,0 +1,134 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Variables ─────────────────────────────────────────────────────────── */
+:root {
+  --void: #080810;
+  --surface: #0f0f1a;
+  --panel: #141428;
+  --border: #1e1e38;
+  --accent: #7c3aed;
+  --accent-light: #a78bfa;
+  --neon-pink: #f472b6;
+  --neon-cyan: #22d3ee;
+  --text-primary: #e2e2f0;
+  --text-secondary: #9898b8;
+}
+
+/* ── Base ───────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--void);
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* ── Custom scrollbar ───────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ── Selection ─────────────────────────────────────────────────────────────── */
+::selection { background: rgba(124, 58, 237, 0.3); color: var(--text-primary); }
+
+/* ── Utility classes ────────────────────────────────────────────────────────── */
+@layer components {
+  .glass {
+    background: rgba(20, 20, 40, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+  }
+
+  .glass-hover {
+    @apply glass transition-all duration-300;
+  }
+  .glass-hover:hover {
+    border-color: rgba(124, 58, 237, 0.4);
+    box-shadow: 0 0 30px rgba(124, 58, 237, 0.15);
+  }
+
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center gap-2 px-6 py-3
+           rounded-xl font-display font-semibold text-white text-sm
+           bg-accent hover:bg-accent/90 transition-all duration-200
+           shadow-glow-violet hover:shadow-glow-violet/70 active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5
+           rounded-xl font-body text-sm text-text-secondary
+           border border-border hover:border-accent/50 hover:text-text-primary
+           transition-all duration-200 bg-transparent active:scale-95;
+  }
+
+  .card {
+    @apply glass rounded-2xl p-5 shadow-card;
+  }
+
+  .input-field {
+    @apply w-full rounded-xl bg-panel border border-border
+           px-4 py-3 text-sm text-text-primary placeholder:text-text-ghost
+           outline-none transition-all duration-200
+           focus:border-accent focus:ring-2 focus:ring-accent/20;
+  }
+
+  .label {
+    @apply block text-xs font-body font-medium text-text-secondary mb-1.5 uppercase tracking-widest;
+  }
+
+  /* Emotion badge */
+  .emotion-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium;
+  }
+
+  /* Audio wave bar */
+  .wave-bar {
+    @apply w-1 rounded-full bg-accent animate-wave;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-accent-light via-neon-pink to-neon-cyan bg-clip-text text-transparent;
+  }
+
+  /* Scanning ring */
+  .scan-ring {
+    @apply absolute inset-0 rounded-full border-2 border-accent/40;
+    animation: scan 2s linear infinite;
+  }
+}
+
+@keyframes scan {
+  0%   { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* ── Page transitions ───────────────────────────────────────────────────────── */
+.page-enter { opacity: 0; transform: translateY(12px); }
+.page-enter-active {
+  opacity: 1; transform: translateY(0);
+  transition: opacity 350ms ease, transform 350ms ease;
+}
+
+/* ── Noise overlay ──────────────────────────────────────────────────────────── */
+.noise-overlay {
+  position: fixed; inset: 0; pointer-events: none; z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
